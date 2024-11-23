@@ -44,11 +44,11 @@ uv run ptw .
 ### Linting
 
 ```bash
-uv run ruff .
+uv run ruff check .
 ```
 
 ### Formatting
 
 ```bash
-uv run black .
+uv run ruff format .
 ```
