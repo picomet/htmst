@@ -36,30 +36,10 @@ print(ast.root.children[0].attrs[0].end.row) # 0
 print(ast.root.children[0].attrs[0].end.col) # 15
 ```
 
-## Development
+## Contributing
 
-### Setup
+Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) for more information.
 
-```bash
-git clone https://github.com/mahdibm/htmst.git
-cd htmst
-uv sync
-```
+## License
 
-### Testing
-
-```bash
-uv run ptw .
-```
-
-### Linting
-
-```bash
-uv run ruff check .
-```
-
-### Formatting
-
-```bash
-uv run ruff format .
-```
+This project is licensed under the [MIT License](LICENSE).
