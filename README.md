@@ -20,9 +20,20 @@ ast = HtmlAst(html)
 
 print(ast.root.children[0].tag) # span
 
-print(ast.root.children[0].attrs[0].name) # foo
+print(ast.root.children[0].start.row) # 0
+print(ast.root.children[0].start.col) # 0
 
+print(ast.root.children[0].end.row) # 0
+print(ast.root.children[0].end.col) # 25
+
+print(ast.root.children[0].attrs[0].name) # foo
 print(ast.root.children[0].attrs[0].value) # bar
+
+print(ast.root.children[0].attrs[0].start.row) # 0
+print(ast.root.children[0].attrs[0].start.col) # 6
+
+print(ast.root.children[0].attrs[0].end.row) # 0
+print(ast.root.children[0].attrs[0].end.col) # 15
 ```
 
 ## Development
