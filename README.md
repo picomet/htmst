@@ -1,6 +1,8 @@
 # htmst
 
 ![PyPI - Python Versions](https://img.shields.io/pypi/pyversions/htmst)
+[![PyPI - Version](https://img.shields.io/pypi/v/htmst)](https://pypi.org/project/htmst)
+![GitHub](https://img.shields.io/github/license/picomet/htmst)
 
 htmst is a python library for parsing html into AST with positions.
 
