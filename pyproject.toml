@@ -2,7 +2,7 @@
 name = "htmst"
 version = "0.0.0"
 readme = "README.md"
-description = "HTML to AST"
+description = "HTML to AST with positions"
 authors = [{ name = "Al Mahdi", email = "picometproject@gmail.com" }]
 license = { text = "MIT" }
 classifiers = [
