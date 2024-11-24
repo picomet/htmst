@@ -84,7 +84,7 @@ class HtmlAst:
         """
         i = self.current_index + 1
         while i < len(self.html):
-            if re.match(r"(\s|\t|\n)", self.html[i]):
+            if re.match(r"(\s|\t|\n|\r)", self.html[i]):
                 i += 1
                 continue
             elif re.match(char, self.html[i]):
@@ -116,7 +116,10 @@ class HtmlAst:
         Skip the next char or end of line.
         """
         char = self.html[self.current_index]
-        if char == "\n":
+        if char == "\r":
+            self.skip_char()
+            self.skip_eol()
+        elif char == "\n":
             self.skip_eol()
         else:
             self.skip_char()
@@ -127,7 +130,7 @@ class HtmlAst:
         """
         while self.current_index < len(self.html):
             char = self.html[self.current_index]
-            if re.match(r"(\s|\t)", char):
+            if re.match(r"(\s|\t|\r)", char):
                 self.skip_char()
             elif char == "\n":
                 self.skip_eol()
