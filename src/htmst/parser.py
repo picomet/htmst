@@ -13,13 +13,13 @@ from htmst.structures import (
 
 SOURCES = ["script", "style"]
 
-CLOSE = {
-    "{": ["}", None],
-    "(": [")", None],
-    "[": ["]", None],
-    '"': ['"', "\\"],
-    "'": ["'", "\\"],
-    "`": ["`", "\\"],
+CLOSINGS = {
+    "(": [")", None, ["(", "{", "[", '"', "'", "`"]],
+    "{": ["}", None, ["(", "{", "[", '"', "'", "`"]],
+    "[": ["]", None, ["(", "{", "[", '"', "'", "`"]],
+    '"': ['"', "\\", []],
+    "'": ["'", "\\", []],
+    "`": ["`", "\\", []],
 }
 
 
@@ -171,20 +171,20 @@ class HtmlAst:
             else:
                 return None
 
-    def handle_until(
-        self, before: str, escape: str = None, close: list[str] = []
-    ) -> str:
+    def handle_until(self, start: str) -> str:
         text = ""
         while self.current_index < len(self.html):
             char = self.html[self.current_index]
-            if char in close:
+            if char in CLOSINGS[start][2]:
                 text += char
                 self.skip_any()
-                text += self.handle_until(CLOSE[char][0], CLOSE[char][1], close)
-            elif re.match(f"[^{before}]", char):
+                text += self.handle_until(char)
+                self.skip_char()
+            elif re.match(f"[^{CLOSINGS[start][0]}]", char):
                 text += char
                 self.skip_any()
             else:
+                escape = CLOSINGS[start][1]
                 if escape and self.html[self.current_index - 1] == escape:
                     text += char
                     self.skip_any()
@@ -198,12 +198,11 @@ class HtmlAst:
         while self.current_index < len(self.html):
             char = self.html[self.current_index]
             if self.current_node.tag in SOURCES:
-                if char in CLOSE:
+                if char in CLOSINGS:
                     text += char
                     self.skip_char()
-                    text += self.handle_until(
-                        CLOSE[char][0], CLOSE[char][1], ["(", "{", "["]
-                    )
+                    text += self.handle_until(char)
+                    self.skip_char()
                 elif char == "<":
                     break
                 else:
@@ -242,10 +241,10 @@ class HtmlAst:
                 self.skip_whitespaces()
                 quote_start = self.match_char(r"('|\")")
                 if quote_start == "'":
-                    value = self.handle_until("'", escape="\\")
+                    value = self.handle_until("'")
                     self.skip_char()  # '
                 elif quote_start == '"':
-                    value = self.handle_until('"', escape="\\")
+                    value = self.handle_until('"')
                     self.skip_char()  # "
                 else:
                     break
