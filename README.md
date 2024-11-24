@@ -38,6 +38,17 @@ print(ast.root.children[0].attrs[0].end.row) # 0
 print(ast.root.children[0].attrs[0].end.col) # 15
 ```
 
+### Nodes
+
+-   `TextNode`: represents texts
+-   `AttrNode`: represents attributes
+-   `DoubleNode`: represents double tags
+-   `SingleNode`: represents single tags
+-   `CommentNode`: represents comments
+-   `DoctypeNode`: represents doctypes
+
+Each node has a `start` and `end` position.
+
 ## Contributing
 
 Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) for more information.
