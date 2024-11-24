@@ -17,6 +17,10 @@ keywords = ["html", "parser", "ast", "position"]
 requires-python = ">=3.12"
 dependencies = []
 
+[project.urls]
+Funding = "https://buymeacoffee.com/almahdi404"
+Repository = "https://github.com/picomet/htmst"
+
 [dependency-groups]
 test = ["htmst", "pytest==8.3.3"]
 dev = ["pre-commit==4.0.1", "pytest-watcher==0.4.3", "ruff==0.8.0"]
