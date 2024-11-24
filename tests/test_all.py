@@ -142,3 +142,23 @@ class TestSource:
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
+
+
+def test_lf():
+    html = """<div>\n  hi\n</div>"""
+    ast = HtmlAst(html)
+    node = ast.root.children[0]
+    assert isinstance(node, DoubleNode)
+    assert node.tag == "div"
+    assert node.start == Pos(0, 0)
+    assert node.end == Pos(2, 6)
+
+
+def test_crlf():
+    html = """<div>\r\n  hi\r\n</div>"""
+    ast = HtmlAst(html)
+    node = ast.root.children[0]
+    assert isinstance(node, DoubleNode)
+    assert node.tag == "div"
+    assert node.start == Pos(0, 0)
+    assert node.end == Pos(2, 6)
