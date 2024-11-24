@@ -5,8 +5,8 @@ on:
     tags:
       - "v*.*"
 jobs:
-  lint:
-    name: Lint
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +32,7 @@ jobs:
     environment:
       name: pypi
       url: https://pypi.org/p/htmst
-    needs: [lint]
+    needs: [test]
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
