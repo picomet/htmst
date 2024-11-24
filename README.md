@@ -9,6 +9,12 @@ htmst is a python library for parsing html into AST with positions.
 ## Installation
 
 ```bash
+uv add htmst
+```
+
+or
+
+```bash
 pip install htmst
 ```
 
