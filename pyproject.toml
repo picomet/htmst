@@ -1,6 +1,6 @@
 [project]
 name = "htmst"
-version = "0.0.0"
+version = "1.0a1"
 readme = "README.md"
 description = "HTML to AST with positions"
 authors = [{ name = "Al Mahdi", email = "picometproject@gmail.com" }]
