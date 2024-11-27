@@ -46,10 +46,10 @@ print(ast.root.children[0].attrs[0].end.col) # 15
 
 ### Nodes
 
--   `TextNode`: represents texts
+-   `DoubleTagNode`: represents double tags
+-   `SingleTagNode`: represents single tags
 -   `AttrNode`: represents attributes
--   `DoubleNode`: represents double tags
--   `SingleNode`: represents single tags
+-   `TextNode`: represents texts
 -   `CommentNode`: represents comments
 -   `DoctypeNode`: represents doctypes
 
