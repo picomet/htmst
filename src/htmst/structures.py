@@ -66,7 +66,9 @@ class DoubleNode:
     ):
         self.tag = tag
         self.attrs = attrs
-        self.children: list[DoubleNode | SingleNode | TextNode] = []
+        self.children: list[
+            DoubleNode | SingleNode | TextNode | CommentNode | DoctypeNode
+        ] = []
         self.parent = parent
         self.start = start
         self.end = end
