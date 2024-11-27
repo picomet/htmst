@@ -2,9 +2,9 @@ from htmst import HtmlAst
 from htmst.structures import (
     CommentNode,
     DoctypeNode,
-    DoubleNode,
+    DoubleTagNode,
     Pos,
-    SingleNode,
+    SingleTagNode,
     TextNode,
 )
 
@@ -21,7 +21,7 @@ def test_double():
     html = """<div>hi</div>"""
     ast = HtmlAst(html)
     node = ast.root.children[0]
-    assert isinstance(node, DoubleNode)
+    assert isinstance(node, DoubleTagNode)
     assert node.tag == "div"
     assert hasattr(node, "children")
     assert node.start == Pos(0, 0)
@@ -32,7 +32,7 @@ def test_single():
     html = """<input type="text" />"""
     ast = HtmlAst(html)
     node = ast.root.children[0]
-    assert isinstance(node, SingleNode)
+    assert isinstance(node, SingleTagNode)
     assert node.tag == "input"
     assert not hasattr(node, "children")
     assert node.start == Pos(0, 0)
@@ -43,7 +43,7 @@ def test_attrs():
     html = """<div class="foo" id="bar" @click="alert()">hi</div>"""
     ast = HtmlAst(html)
     node = ast.root.children[0]
-    assert isinstance(node, DoubleNode)
+    assert isinstance(node, DoubleTagNode)
     assert node.tag == "div"
     assert node.attrs[0].name == "class"
     assert node.attrs[0].value == "foo"
@@ -59,7 +59,7 @@ def test_double_quote():
     html = """<div class="foo \\" bar">hi</div>"""
     ast = HtmlAst(html)
     node = ast.root.children[0]
-    assert isinstance(node, DoubleNode)
+    assert isinstance(node, DoubleTagNode)
     assert node.tag == "div"
     assert node.attrs[0].value == 'foo \\" bar'
     assert node.start == Pos(0, 0)
@@ -70,7 +70,7 @@ def test_single_quote():
     html = """<div class='foo \\' bar'>hi</div>"""
     ast = HtmlAst(html)
     node = ast.root.children[0]
-    assert isinstance(node, DoubleNode)
+    assert isinstance(node, DoubleTagNode)
     assert node.tag == "div"
     assert node.attrs[0].value == "foo \\' bar"
     assert node.start == Pos(0, 0)
@@ -102,7 +102,7 @@ class TestSource:
         html = """<script>foo(</script>)</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
-        assert isinstance(node, DoubleNode)
+        assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
@@ -111,7 +111,7 @@ class TestSource:
         html = """<script>function foo(){ </script>; }</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
-        assert isinstance(node, DoubleNode)
+        assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
@@ -120,7 +120,7 @@ class TestSource:
         html = """<script>function foo(){ bar[</script>]; }</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
-        assert isinstance(node, DoubleNode)
+        assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
@@ -129,7 +129,7 @@ class TestSource:
         html = """<script>function foo(){ bar['</script>']; }</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
-        assert isinstance(node, DoubleNode)
+        assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
@@ -138,7 +138,7 @@ class TestSource:
         html = """<script>function foo(){ bar["</script>"]; }</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
-        assert isinstance(node, DoubleNode)
+        assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
@@ -148,7 +148,7 @@ def test_lf():
     html = """<div>\n  hi\n</div>"""
     ast = HtmlAst(html)
     node = ast.root.children[0]
-    assert isinstance(node, DoubleNode)
+    assert isinstance(node, DoubleTagNode)
     assert node.tag == "div"
     assert node.start == Pos(0, 0)
     assert node.end == Pos(2, 6)
@@ -158,7 +158,7 @@ def test_crlf():
     html = """<div>\r\n  hi\r\n</div>"""
     ast = HtmlAst(html)
     node = ast.root.children[0]
-    assert isinstance(node, DoubleNode)
+    assert isinstance(node, DoubleTagNode)
     assert node.tag == "div"
     assert node.start == Pos(0, 0)
     assert node.end == Pos(2, 6)

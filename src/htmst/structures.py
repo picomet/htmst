@@ -24,7 +24,7 @@ class Pos:
 class TextNode:
     __slots__ = ("text", "parent", "start", "end")
 
-    def __init__(self, text: str, parent: "DoubleNode", start: Pos, end: Pos):
+    def __init__(self, text: str, parent: "DoubleTagNode", start: Pos, end: Pos):
         self.text = text
         self.start = start
         self.end = end
@@ -53,21 +53,21 @@ class AttrNode:
         return f"AttrNode(@{self.name}){self.start}-{self.end}"
 
 
-class DoubleNode:
+class DoubleTagNode:
     __slots__ = ("tag", "attrs", "children", "parent", "start", "end")
 
     def __init__(
         self,
         tag: str,
         attrs: list[AttrNode],
-        parent: "DoubleNode | None",
+        parent: "DoubleTagNode | None",
         start: Pos,
         end: Pos,
     ):
         self.tag = tag
         self.attrs = attrs
         self.children: list[
-            DoubleNode | SingleNode | TextNode | CommentNode | DoctypeNode
+            DoubleTagNode | SingleTagNode | TextNode | CommentNode | DoctypeNode
         ] = []
         self.parent = parent
         self.start = start
@@ -77,14 +77,14 @@ class DoubleNode:
         return f"DoubleNode(<{self.tag}>){self.start}-{self.end}"
 
 
-class SingleNode:
+class SingleTagNode:
     __slots__ = ("tag", "attrs", "parent", "start", "end")
 
     def __init__(
         self,
         tag: str,
         attrs: list[AttrNode],
-        parent: DoubleNode,
+        parent: DoubleTagNode,
         start: Pos,
         end: Pos,
     ):
@@ -102,7 +102,7 @@ class CommentNode:
     def __init__(
         self,
         text: str,
-        parent: DoubleNode,
+        parent: DoubleTagNode,
         start: Pos,
         end: Pos,
     ):
@@ -119,7 +119,7 @@ class DoctypeNode:
     def __init__(
         self,
         text: str,
-        parent: DoubleNode,
+        parent: DoubleTagNode,
         start: Pos,
         end: Pos,
     ):

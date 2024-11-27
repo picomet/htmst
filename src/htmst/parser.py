@@ -5,9 +5,9 @@ from htmst.structures import (
     AttrNode,
     CommentNode,
     DoctypeNode,
-    DoubleNode,
+    DoubleTagNode,
     Pos,
-    SingleNode,
+    SingleTagNode,
     TextNode,
 )
 
@@ -28,7 +28,7 @@ class HtmlAst:
 
     def __init__(self, html: str):
         self.html: str = html
-        self.root = DoubleNode("", [], None, Pos(0, 0), Pos(0, 0))
+        self.root = DoubleTagNode("", [], None, Pos(0, 0), Pos(0, 0))
         self.current_node = self.root
         self.current_index = 0
         self.current_pos = Pos(0, 0)
@@ -268,7 +268,9 @@ class HtmlAst:
             char = self.html[self.current_index]
             if char == ">":
                 self.skip_char()
-                node = DoubleNode(tag, attrs, self.current_node, tag_start, Pos(0, 0))
+                node = DoubleTagNode(
+                    tag, attrs, self.current_node, tag_start, Pos(0, 0)
+                )
                 self.current_node.children.append(node)
                 self.current_node = node
                 break
@@ -279,7 +281,7 @@ class HtmlAst:
                     char = self.html[self.current_index]
                     if char == ">":
                         self.skip_char()
-                        node = SingleNode(
+                        node = SingleTagNode(
                             tag,
                             attrs,
                             self.current_node,
