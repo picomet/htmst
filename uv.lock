@@ -39,7 +39,7 @@ wheels = [
 
 [[package]]
 name = "htmst"
-version = "0.0.0"
+version = "1.0a1"
 source = { editable = "." }
 
 [package.dev-dependencies]
