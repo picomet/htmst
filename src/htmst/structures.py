@@ -25,10 +25,10 @@ class TextNode:
     __slots__ = ("text", "parent", "start", "end")
 
     def __init__(self, text: str, parent: "DoubleTagNode", start: Pos, end: Pos):
-        self.text = text
-        self.start = start
-        self.end = end
-        self.parent = parent
+        self.text: str = text
+        self.start: Pos = start
+        self.end: Pos = end
+        self.parent: DoubleTagNode = parent
 
     def __repr__(self):
         return f"TextNode(...){self.start}-{self.end}"
@@ -44,10 +44,10 @@ class AttrNode:
         start: Pos,
         end: Pos,
     ):
-        self.name = name
-        self.value = value
-        self.start = start
-        self.end = end
+        self.name: str = name
+        self.value: str = value
+        self.start: Pos = start
+        self.end: Pos = end
 
     def __repr__(self):
         return f"AttrNode(@{self.name}){self.start}-{self.end}"
@@ -64,14 +64,14 @@ class DoubleTagNode:
         start: Pos,
         end: Pos,
     ):
-        self.tag = tag
-        self.attrs = attrs
+        self.tag: str = tag
+        self.attrs: list[AttrNode] = attrs
         self.children: list[
             DoubleTagNode | SingleTagNode | TextNode | CommentNode | DoctypeNode
         ] = []
-        self.parent = parent
-        self.start = start
-        self.end = end
+        self.parent: DoubleTagNode | None = parent
+        self.start: Pos = start
+        self.end: Pos = end
 
     def __repr__(self):
         return f"DoubleNode(<{self.tag}>){self.start}-{self.end}"
@@ -88,11 +88,11 @@ class SingleTagNode:
         start: Pos,
         end: Pos,
     ):
-        self.tag = tag
-        self.attrs = attrs
-        self.parent = parent
-        self.start = start
-        self.end = end
+        self.tag: str = tag
+        self.attrs: list[AttrNode] = attrs
+        self.parent: DoubleTagNode = parent
+        self.start: Pos = start
+        self.end: Pos = end
 
     def __repr__(self):
         return f"SingleNode(<{self.tag}/>){self.start}-{self.end}"
@@ -106,10 +106,10 @@ class CommentNode:
         start: Pos,
         end: Pos,
     ):
-        self.text = text
-        self.parent = parent
-        self.start = start
-        self.end = end
+        self.text: str = text
+        self.parent: DoubleTagNode = parent
+        self.start: Pos = start
+        self.end: Pos = end
 
     def __repr__(self):
         return f"CommentNode(...){self.start}-{self.end}"
@@ -123,10 +123,10 @@ class DoctypeNode:
         start: Pos,
         end: Pos,
     ):
-        self.text = text
-        self.parent = parent
-        self.start = start
-        self.end = end
+        self.text: str = text
+        self.parent: DoubleTagNode = parent
+        self.start: Pos = start
+        self.end: Pos = end
 
     def __repr__(self):
         return f"DoctypeNode({self.text}){self.start}-{self.end}"
