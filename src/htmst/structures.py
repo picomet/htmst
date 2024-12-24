@@ -45,7 +45,7 @@ class AttrNode:
         end: Pos,
     ):
         self.name: str = name
-        self.value: str = value
+        self.value: str | None = value
         self.start: Pos = start
         self.end: Pos = end
 
