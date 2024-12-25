@@ -22,6 +22,9 @@ CLOSINGS = {
     "`": ["`", "\\", []],
 }
 
+TAG_NAME = r"[a-zA-Z0-9.-]"
+ATTR_NAME = r"[a-zA-Z0-9@:.-]"
+
 
 class HtmlAst:
     __slots__ = ("html", "root", "current_node", "current_index", "current_pos")
@@ -229,13 +232,13 @@ class HtmlAst:
         tag_start = deepcopy(self.current_pos)
         self.skip_char()  # <
         self.skip_whitespaces()
-        tag = self.match_chars(r"[a-zA-Z0-9]")
+        tag = self.match_chars(TAG_NAME)  # tag
         self.skip_whitespaces()
 
         attrs: list[AttrNode] = []
         while self.current_index < len(self.html):
             attr_start = deepcopy(self.current_pos)
-            name = self.match_chars(r"[a-zA-Z0-9@-]")
+            name = self.match_chars(ATTR_NAME)
             if not name:
                 break
             self.skip_whitespaces()
@@ -299,7 +302,7 @@ class HtmlAst:
         self.skip_char()  # <
         self.skip_whitespaces()
         self.skip_char()  # /
-        self.match_chars(r"[a-zA-Z0-9]")  # tag
+        self.match_chars(TAG_NAME)  # tag
         self.skip_whitespaces()
         while self.current_index < len(self.html):
             char = self.html[self.current_index]
