@@ -23,7 +23,7 @@ CLOSINGS = {
 }
 
 TAG_NAME = r"[a-zA-Z0-9.-]"
-ATTR_NAME = r"[a-zA-Z0-9@:.-]"
+ATTR_NAME = r"[a-zA-Z0-9@:_.-]"
 
 
 class HtmlAst:
