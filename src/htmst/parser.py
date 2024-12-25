@@ -56,11 +56,11 @@ class HtmlAst:
         """
         Check if the next list of chars is the given chars.
 
-        Parameters:
-        chars (list[str]): the chars to check.
+        Args:
+            chars (list[str]): the chars to check.
 
         Returns:
-        True if the next list of chars is the given chars, False otherwise.
+            True if the next list of chars is the given chars, False otherwise.
         """
         i = self.current_index + 1
         for char in chars:
@@ -76,11 +76,11 @@ class HtmlAst:
         """
         Check if the next non-whitespace char is the given char.
 
-        Parameters:
-        char (str): the char to check.
+        Args:
+            char (str): the char to check.
 
         Returns:
-        True if the next non-whitespace char is the given char, False otherwise.
+            True if the next non-whitespace char is the given char, False otherwise.
         """
         i = self.current_index + 1
         while i < len(self.html):
@@ -94,8 +94,8 @@ class HtmlAst:
 
     def skip_char(self, num: int = 1) -> None:
         """
-        Skip the next char(s) by incrementing the current index by num.
-        And incrementing the current position column by num.
+        Skip the next char(s) by incrementing the current index by given num,
+        and incrementing the current position column by given num.
 
         Args:
             num (int, optional): the number of char(s) to skip. Defaults to 1.
@@ -141,11 +141,11 @@ class HtmlAst:
         """
         Optionally match a char and skip it.
 
-        Parameters:
-        regex (str): the regex to match.
+        Args:
+            regex (str): the regex to match.
 
         Returns:
-        str | None: the matched char or None if no match.
+            str | None: the matched char or None if no match.
         """
         char = self.html[self.current_index]
         if re.match(regex, char):
@@ -161,7 +161,7 @@ class HtmlAst:
             regex (str): the regex to match.
 
         Returns:
-            str | None: the matched char or None if no match.
+            str | None: the matched char(s) or None if no match.
         """
         string = ""
         while self.current_index < len(self.html):
