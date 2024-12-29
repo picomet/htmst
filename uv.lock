@@ -39,7 +39,7 @@ wheels = [
 
 [[package]]
 name = "htmst"
-version = "1.0a3"
+version = "1.0a8"
 source = { editable = "." }
 
 [package.dev-dependencies]
@@ -49,6 +49,7 @@ dev = [
     { name = "ruff" },
 ]
 test = [
+    { name = "htmst" },
     { name = "pytest" },
 ]
 
