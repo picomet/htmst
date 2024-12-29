@@ -99,49 +99,59 @@ def test_doctype():
 
 class TestSource:
     def test_first_bracket(self):
-        html = """<script>foo(</script>)</script>"""
+        source = "foo(</script>)"
+        html = f"""<script>{source}</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
         assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
+        assert node.children[0].text == source
 
     def test_second_bracket(self):
-        html = """<script>function foo(){ </script>; }</script>"""
+        source = "function foo(){ </script>; }"
+        html = f"""<script>{source}</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
         assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
+        assert node.children[0].text == source
 
     def test_third_bracket(self):
-        html = """<script>function foo(){ bar[</script>]; }</script>"""
+        source = "function foo(){ bar[</script>]; }"
+        html = f"""<script>{source}</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
         assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
+        assert node.children[0].text == source
 
     def test_signle_quote(self):
-        html = """<script>function foo(){ bar['</script>']; }</script>"""
+        source = "function foo(){ bar['</script>']; }"
+        html = f"""<script>{source}</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
         assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
+        assert node.children[0].text == source
 
     def test_double_quote(self):
-        html = """<script>function foo(){ bar["</script>"]; }</script>"""
+        source = 'function foo(){ bar["</script>"]; }'
+        html = f"""<script>{source}</script>"""
         ast = HtmlAst(html)
         node = ast.root.children[0]
         assert isinstance(node, DoubleTagNode)
         assert node.tag == "script"
         assert node.start == Pos(0, 0)
         assert node.end == Pos(0, len(html))
+        assert node.children[0].text == source
 
 
 def test_lf():

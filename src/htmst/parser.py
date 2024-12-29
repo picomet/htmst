@@ -185,6 +185,7 @@ class HtmlAst:
                 text += char
                 self.skip_any()
                 text += self.handle_until(char)
+                text += self.html[self.current_index]
                 self.skip_char()
             elif re.match(f"[^{CLOSINGS[start][0]}]", char):
                 text += char
@@ -207,7 +208,10 @@ class HtmlAst:
                 if char in CLOSINGS:
                     text += char
                     self.skip_char()
+
                     text += self.handle_until(char)
+
+                    text += self.html[self.current_index]
                     self.skip_char()
                 elif char == "<":
                     break
