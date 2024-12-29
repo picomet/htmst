@@ -11,9 +11,9 @@ from htmst.structures import (
     TextNode,
 )
 
-SOURCES = ["script", "style"]
+SOURCES: list[str] = ["script", "style"]
 
-CLOSINGS = {
+CLOSINGS: dict[str, tuple[str, str | None, list[str]]] = {
     "(": [")", None, ["(", "{", "[", '"', "'", "`"]],
     "{": ["}", None, ["(", "{", "[", '"', "'", "`"]],
     "[": ["]", None, ["(", "{", "[", '"', "'", "`"]],
